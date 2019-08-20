@@ -24,12 +24,20 @@
                 <li class="fl">完全开放</li>
                 <li class="fl">勋章开放</li>
               </ul> -->
-              <el-select v-model="value1" multiple placeholder="请选择">
+              <el-select
+                v-model="value1"
+                multiple
+                placeholder="请选择"
+                style="width:800px;"
+                class="taskchoose"
+              >
                 <el-option
+                  id="task"
                   v-for="item in options"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
+                  style="overflow: auto;height:36px;"
                 >
                 </el-option>
               </el-select>
@@ -179,23 +187,25 @@ export default {
       options: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '位点基本信息位点基本信息位点基本信息位点基本信息位点基本信息'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label:
+            '药物基本信息位点基本信息位点基本信息位点基本信息位点基本信息位点基本信息'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
+          label:
+            '基因基本信息基因基本信息基因基本信息基因基本信息基因基本信息基因基本信息基因基本信息'
         },
         {
           value: '选项4',
-          label: '龙须面'
+          label: '疾病基本信息'
         },
         {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '项目基本信息'
         }
       ],
       id: [],
@@ -394,9 +404,9 @@ export default {
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
 //中间顶部筛选条件 1
-.el-select .el-input {
-  width: 130px;
-}
+// .el-select .el-input {
+//   width: 130px;
+// }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
 }
@@ -426,10 +436,10 @@ export default {
   float: left;
 }
 //中间顶部筛选条件 2
-.el-textarea .el-textarea__inner {
-  // 然后找到对应的类名，在这里将拉伸去掉即可
-  resize: none;
-}
+// .el-textarea .el-textarea__inner {
+//   // 然后找到对应的类名，在这里将拉伸去掉即可
+//   resize: none;
+// }
 #box {
   display: flex;
 }
@@ -970,4 +980,43 @@ ul.box {
   height: 0;
   visibility: hidden;
 } /*==for FF/chrome/opera/IE8==*/
+</style>
+
+<style>
+.el-tag .el-select__tags-text {
+  float: left !important;
+}
+.el-tag .el-icon-close {
+  float: left !important;
+  margin-top: 4px;
+}
+.el-icon-caret-top {
+  margin-top: 2px !important;
+}
+.el-select__tags {
+  float: left;
+  height: 60px;
+  overflow: auto;
+}
+.el-select__tags::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+.el-select__tags::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.el-select__tags::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+.el-select__tags span.el-tag {
+  float: left;
+}
 </style>
