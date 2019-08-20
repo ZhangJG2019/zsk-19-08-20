@@ -11,12 +11,12 @@
             <div class="task_classify clearfix">
               <ul class="task_class " style="border-bottom:1px solid #ccc">
                 <strong class="fl">任务类型 :</strong>
-                <li class="fl actived"><strong>全部</strong></li>
-                <li class="fl"><strong>基本信息类</strong></li>
-                <li class="fl"><strong>注释类信息</strong></li>
-                <li class="fl"><strong>文献原文指标分解整理</strong></li>
-                <li class="fl"><strong>上传</strong></li>
-                <li class="fl"><strong>数据统计</strong></li>
+                <li class="fl anow"><a>全部</a></li>
+                <li class="fl"><a>基本信息类</a></li>
+                <li class="fl"><a>注释类信息</a></li>
+                <li class="fl"><a>文献原文指标分解整理</a></li>
+                <li class="fl"><a>上传</a></li>
+                <li class="fl"><a>数据统计</a></li>
               </ul>
               <!-- <ul class="task_power">
                 <span class="fl">任务权限 :</span>
@@ -82,7 +82,7 @@
                     style="float:left!important; display:inline-block;"
                     v-text="item.name"
                   ></a>
-                  <el-button
+                  <!-- <el-button
                     :id="forId2(key)"
                     type="primary"
                     @click="lingqu(item.id)"
@@ -90,12 +90,12 @@
                     v-if="disabled == false"
                     style="margin-left:15px"
                     >领取
-                  </el-button>
+                  </el-button> -->
                   <el-button
                     :id="forId2(key)"
                     type="button"
                     @click="bianji"
-                    v-if="disabled == true"
+                    v-if="disabled == false"
                     v-text="btntxt"
                   >
                   </el-button>
@@ -254,11 +254,16 @@ export default {
     }
   },
   mounted() {
-    // 点击首页跳转页面 1
-    $('.index').click(function() {
-      $('a', this)[0].click()
+    // 菜单切换高亮显示 1
+    $(document).ready(function() {
+      $('.task_class li').click(function() {
+        $(this)
+          .addClass('anow')
+          .siblings()
+          .removeClass('anow')
+      })
     })
-    // 点击首页跳转页面 2
+    // 菜单切换高亮显示 2
   },
   methods: {
     // 给任务大厅数据列表动态添加id
@@ -279,7 +284,7 @@ export default {
         page: '1'
       }).then(res => {
         // debugger
-        // console.log(res)
+        console.log(res)
         // console.log(res.data[0])
         this.taskhall = res.data
         this.name = res.data[0].name
@@ -442,7 +447,7 @@ export default {
   padding: 0 20px;
   cursor: pointer;
 }
-.actived {
+.task_class li.anow {
   border: 2px solid #13cb6a;
 }
 .task_classify ul li.fl {
