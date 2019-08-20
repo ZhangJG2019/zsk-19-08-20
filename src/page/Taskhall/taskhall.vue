@@ -63,9 +63,13 @@
                 <!-- 任务搜索框 2-->
                 <li
                   class="center_content"
-                  v-for="(item, key) in taskhall"
+                  v-for="(item, key) in taskhall.slice(
+                    (currentPage - 1) * pageSize,
+                    currentPage * pageSize
+                  )"
                   :key="key"
                   :id="forId(key)"
+                  @current-change="handleCurrentChange"
                 >
                   <img
                     src="../../../static/images/liwu.png"
@@ -96,19 +100,20 @@
                   >
                   </el-button>
                 </li>
-
                 <!-- 分页 1-->
                 <li
                   style="height:60px;line-height:60px;  "
                   class="center_content"
                 >
                   <el-pagination
+                    background
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
-                    :page-size="5"
-                    layout="total, prev, pager, next, jumper"
-                    :total="400"
+                    :current-page="currentPage"
+                    :page-sizes="[3, 6, 9]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="taskhall.length"
                     style="float:right;margin:25px 10px 0 0;"
                   >
                   </el-pagination>
@@ -242,7 +247,10 @@ export default {
       // 接收最新研究内容列表信息
       newContent: [],
       // taskHall: [], // 暂存请求到的任务大厅数据
-      taskhall: []
+      taskhall: [], // 暂存请求到的任务大厅数据
+      currentPage: 1, // 当前页面
+      alltotal: '', // 最多条数
+      pageSize: 3 // 每页15条
     }
   },
   mounted() {
@@ -267,7 +275,7 @@ export default {
       axios({
         method: 'get',
         url: url,
-        rows: '10',
+        rows: '3',
         page: '1'
       }).then(res => {
         // debugger
@@ -293,13 +301,18 @@ export default {
       //   console.log(res)
       // })
     },
-    // 分页
+    // 任务列表数据分页
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      // console.log(`每页 ${val} 条`)
+      this.pageSize = val // 动态改变
+      this.getTaskList() // 重新获取数据列表
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      // console.log(`当前页: ${val}`)
+      this.currentPage = val // 动态改变
+      this.getTaskList() // 重新获取数据列表
     },
+
     // 查询信息
     handleIconClick(ev) {
       if (this.$route.path === '/search') {
