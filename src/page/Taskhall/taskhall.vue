@@ -479,16 +479,16 @@
           v-model="textarea"
           v-if="item.type.indexOf('_textarea') >= 0"
         >
+          <!-- v-if="item.type.indexOf('_ckeditor') >= 0" -->
         </el-input>
-        <el-input
-          style="width:83%"
-          :rows="2"
-          id="item.value"
-          placeholder="请输入内容"
-          v-model="textarea"
-          v-if="item.type.indexOf('ckeditor') > 0"
+        <quill-editor
+          v-model="content"
+          ref="myQuillEditor"
+          style="width:84%;margin-left:100px;"
+          :options="editorOption"
+          v-if="item.type.indexOf('_ckeditor') >= 0"
         >
-        </el-input>
+        </quill-editor>
       </li>
       <div slot="footer" class="dialog-footer">
         <el-button
@@ -516,6 +516,10 @@ import YFooter from '/common/footer'
 import 'jquery'
 import 'element-ui'
 import axios from 'axios'
+import { quillEditor } from 'vue-quill-editor' // 调用编辑器
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
   name: 'TestWorld',
 
@@ -531,6 +535,12 @@ export default {
   data() {
     return {
       // 弹窗 1
+      content: null,
+      editorOption: {
+        action: '/img/uploadImg ', // 必填参数 图片上传地址
+        methods: 'post', // 必填参数 图片上传方式
+        name: 'upload_file' // 必填参数 文件的参数名
+      },
       activeName: 'first',
       input1: '',
       input2: '',
@@ -650,6 +660,8 @@ export default {
     // 菜单切换高亮显示 2
   },
   methods: {
+    // 富文本编辑器
+    onEditorReady(editor) {},
     handleClick(tab, event) {
       console.log(tab, event)
     },
@@ -743,12 +755,13 @@ export default {
       //     this.tasklist.push(s)
       //   }
       // })
-      
+
       let data2 = {
-        evidenceLevel_input: '询证等级',
-        medicationType_input: '用药类型',
-        race_details_textarea: '种族详情',
-        medication_suggestion_textarea: '用药建议'
+        citation_textarea: 'Citation',
+        history_ckeditor3: 'History',
+        summary_ckeditor1: 'Summary',
+        description_ckeditor2: 'Description',
+        therapaeutic_textarea: 'Therapeutic Categories'
       }
       for (var key3 in data2) {
         // console.log(key3 + ' : ' + data2[key3])
@@ -762,42 +775,6 @@ export default {
         this.tasklist.push(s)
       }
     },
-    // bianji(id) {
-    //   // this.dialogFormVisible1 = true
-    //   this.dialogFormVisible2 = true
-    //   this.tasklist = []
-    //   // var url = 'static/data/taskhall.json'
-    //   // axios({
-    //   //   method: 'get',
-    //   //   url: url
-    //   // }).then(res => {
-    //   //   // debugger
-    //   //   console.log(res)
-    //   //   let data1 = res.data
-    //   //   for (var key in data1) {
-    //   //     let s = {
-    //   //       name: data1[key],
-    //   //       value: key
-    //   //     }
-    //   //     this.tasklist.push(s)
-    //   //   }
-    //   // })
-    //   let data2 = {
-    //     evidenceLevel_input: '询证等级',
-    //     projectPorId_select: '项目位点主键',
-    //     medicationType_input: '用药类型',
-    //     race_details_textarea: '种族详情',
-    //     medication_suggestion_textarea: '用药建议'
-    //   }
-    //   for (var key3 in data2) {
-    //     // console.log(key3 + ' : ' + data2[key3])
-    //     let s = {
-    //       name: data2[key3],
-    //       value: key3
-    //     }
-    //     this.tasklist.push(s)
-    //   }
-    // },
     lingqu(id) {
       this.disabled = true
     },
@@ -919,7 +896,8 @@ export default {
     YShelf,
     YButton,
     YHeader,
-    YFooter
+    YFooter,
+    quillEditor
   }
 }
 </script>
