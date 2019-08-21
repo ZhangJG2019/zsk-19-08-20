@@ -14,6 +14,8 @@ import {
   userInfo
 } from './api'
 import {
+  Tabs,
+  TabPane,
   Button,
   ButtonGroup,
   Pagination,
@@ -29,6 +31,7 @@ import {
   TableColumn,
   Input,
   Dialog,
+  DatePicker,
   Select,
   Option,
   Card,
@@ -37,13 +40,16 @@ import {
   FormItem,
   CheckboxGroup,
   Row,
-  Col
+  Col,
+  TimePicker
 } from 'element-ui'
 import {
   getStore
 } from '/utils/storage'
 import VueContentPlaceholders from 'vue-content-placeholders'
 Vue.use(VueContentPlaceholders)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.use(Button)
 Vue.use(ButtonGroup)
 Vue.use(Pagination)
@@ -54,8 +60,10 @@ Vue.use(Steps)
 Vue.use(Step)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(TimePicker)
 Vue.use(Input)
 Vue.use(Dialog)
+Vue.use(DatePicker)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Loading.directive)
@@ -64,6 +72,7 @@ Vue.use(Tag)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(CheckboxGroup)
+
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

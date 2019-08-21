@@ -170,6 +170,7 @@
     </div>
     <y-footer></y-footer>
     <el-dialog title="编辑任务1" :visible.sync="dialogFormVisible1">
+      <!-- -->
       <li
         class="center_content"
         v-for="(item, key1) in tasklist"
@@ -226,87 +227,80 @@
         :visible.sync="dialogFormVisible2"
         class="two"
       >
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane label="任务信息" name="first">
-            <div class="">
-              任务名称：
-              <el-input
-                placeholder="任务名称"
-                suffix-icon="el-icon-date"
-                v-model="input1"
-              >
-              </el-input>
-              评论内容：
-              <el-input
-                type="textarea"
-                placeholder="请输入内容"
-                prefix-icon="el-icon-search"
-                v-model="input2"
-              >
-              </el-input>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="任务编辑" name="second">
-            <div class="TestWord">
-              <div class="insertbutton">
-                <el-button @click="addLine_two" class="addrow"
-                  >添加行数</el-button
-                >
-              </div>
-              <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="xuhao" label="序号" width="100px">
-                  <template slot-scope="scope">
-                    <label v-text="scope.$index + 1"></label>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="drugGenericName" label="药物通用名">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.drugGenericName"
-                      placeholder="药物通用名"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="drugTradeName" label="药物商品名">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.drugTradeName"
-                      placeholder="药物商品名"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="approvalNumber" label="批准文号">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.approvalNumber"
-                      placeholder="批准文号"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="specifications" label="规格">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.specifications"
-                      placeholder="规格"
-                    ></el-input>
-                  </template> </el-table-column
-                ><el-table-column prop="originPlace" label="国家/厂家">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.originPlace"
-                      placeholder="国家/厂家"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="caozuo" label="操作">
-                  <template slot-scope="scope">
-                    <div class="insertbutton">
-                      <!-- <el-button
+        <div class="">
+          任务名称：
+          <el-input
+            placeholder="请选择日期"
+            suffix-icon="el-icon-date"
+            v-model="input1"
+          >
+          </el-input>
+          评论内容：
+          <el-input
+            placeholder="请输入内容"
+            prefix-icon="el-icon-search"
+            v-model="input2"
+          >
+          </el-input>
+        </div>
+        <div class="TestWord">
+          <div class="insertbutton">
+            <el-button @click="addLine" class="addrow">添加行数</el-button>
+          </div>
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column prop="xuhao" label="序号" width="100px">
+              <template slot-scope="scope">
+                <label v-text="scope.$index + 1"></label>
+              </template>
+            </el-table-column>
+            <el-table-column prop="drugGenericName" label="药物通用名">
+              <template slot-scope="scope">
+                <el-input
+                  type="textarea"
+                  v-model="scope.row.drugGenericName"
+                  placeholder="药物通用名"
+                ></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="drugTradeName" label="药物商品名">
+              <template slot-scope="scope">
+                <el-input
+                  type="textarea"
+                  v-model="scope.row.drugTradeName"
+                  placeholder="药物商品名"
+                ></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="approvalNumber" label="批准文号">
+              <template slot-scope="scope">
+                <el-input
+                  type="textarea"
+                  v-model="scope.row.approvalNumber"
+                  placeholder="批准文号"
+                ></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="specifications" label="规格">
+              <template slot-scope="scope">
+                <el-input
+                  type="textarea"
+                  v-model="scope.row.specifications"
+                  placeholder="规格"
+                ></el-input>
+              </template> </el-table-column
+            ><el-table-column prop="originPlace" label="国家/厂家">
+              <template slot-scope="scope">
+                <el-input
+                  type="textarea"
+                  v-model="scope.row.originPlace"
+                  placeholder="国家/厂家"
+                ></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="caozuo" label="操作">
+              <template slot-scope="scope">
+                <div class="insertbutton">
+                  <!-- <el-button
                     class="delete"
                     size="mini"
                     v-if="!scope.row.editing"
@@ -314,20 +308,18 @@
                     @click="handleDelete(scope.$index, scope.row)"
                     >删除
                   </el-button> -->
-                      <i
-                        class="el-icon-delete delete"
-                        size="mini"
-                        v-if="!scope.row.editing"
-                        icon="el-icon-delete"
-                        @click="handleDelete(scope.$index, scope.row)"
-                      ></i>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
+                  <i
+                    class="el-icon-delete delete"
+                    size="mini"
+                    v-if="!scope.row.editing"
+                    icon="el-icon-delete"
+                    @click="handleDelete(scope.$index, scope.row)"
+                  ></i>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
 
         <div slot="footer" class="dialog-footer">
           <el-button
@@ -349,153 +341,6 @@
         </div>
       </el-dialog>
     </div>
-    <!-- 弹窗 3 -->
-    <div class="three">
-      <el-dialog title="外层 Dialog 编辑任务3" :visible.sync="outerVisible">
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane label="任务信息" name="first">
-            <div class="">
-              任务名称：
-              <el-input
-                placeholder="任务名称"
-                suffix-icon="el-icon-date"
-                v-model="input_three"
-              >
-              </el-input>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="任务编辑" name="second">
-            <div class="TestThree">
-              <div class="insertbutton">
-                <el-button @click="addLine_three" class="addrow"
-                  >添加行数</el-button
-                >
-              </div>
-              <el-table :data="tableData_three" style="width: 100%">
-                <el-table-column prop="xuhao" label="序号" width="100px">
-                  <template slot-scope="scope">
-                    <label v-text="scope.$index + 1"></label>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="pmid" label="PMID">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.pmid"
-                      placeholder="PMID"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="name" label="文献名称">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.name"
-                      placeholder="文献名称"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column label="文献内容提取">
-                  <template slot-scope="scope">
-                    <el-button
-                      type="primary"
-                      v-model="scope.row.approvalNumber"
-                      @click="wenxiancontentedit"
-                      >编辑</el-button
-                    >
-                  </template>
-                </el-table-column>
-                <el-table-column prop="accessoryId" label="文献上传">
-                  <template slot-scope="scope">
-                    <el-select
-                      v-model="scope.row.accessoryId"
-                      placeholder="规格"
-                    ></el-select>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="caozuo" label="操作">
-                  <template slot-scope="scope">
-                    <div class="insertbutton">
-                      <i
-                        class="el-icon-delete delete"
-                        size="mini"
-                        v-if="!scope.row.editing"
-                        icon="el-icon-delete"
-                        @click="handleDelete_three(scope.$index, scope.row)"
-                      ></i>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-        <!-- 内层dialog 1-->
-        <div class="three_two"></div>
-        <!-- 内层dialog 1-->
-        <div slot="footer" class="dialog-footer">
-          <el-button
-            @click="outerVisible = false"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >取 消</el-button
-          >
-          <el-button
-            type="primary"
-            @click="save"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >确 定</el-button
-          >
-          <el-button
-            @click="outerVisible = false"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >放弃任务</el-button
-          >
-        </div>
-      </el-dialog>
-    </div>
-    <el-dialog
-      width="30%"
-      title="内层 Dialog"
-      :visible.sync="innerVisible"
-      :append-to-body="true"
-    >
-      <li
-        class="center_content"
-        v-for="(item, key_three) in tasklist_three"
-        :key="key_three"
-        style="margin-bottom:10px;"
-      >
-        <span style="float:left;width:100px;" v-text="item.name"></span>
-        <el-input
-          v-model="form.name"
-          style="width:83%"
-          v-if="item.value.indexOf('_input') > 0"
-        ></el-input>
-        <el-input
-          style="width:83%"
-          type="textarea"
-          :rows="2"
-          placeholder="请输入内容"
-          v-model="textarea"
-          v-if="item.value.indexOf('_textarea') > 0"
-        >
-        </el-input>
-      </li>
-      <div slot="footer" class="dialog-footer">
-        <el-button
-          @click="innerVisible = false"
-          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-          >取 消</el-button
-        >
-        <el-button
-          type="primary"
-          @click="innerVisible = false"
-          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-          >确 定</el-button
-        >
-      </div>
-    </el-dialog>
-    <!-- 弹窗 3 -->
   </div>
 </template>
 <script>
@@ -522,10 +367,8 @@ export default {
   data() {
     return {
       // 弹窗 1
-      activeName: 'first',
       input1: '',
       input2: '',
-      input_three: '',
       tableData: [
         {
           drugGenericName: '',
@@ -536,19 +379,10 @@ export default {
           originPlace: ''
         }
       ],
-      tableData_three: [
-        {
-          pmid: '',
-          name: '',
-          accessoryId: '',
-          caozuo: ''
-        }
-      ],
+
       dialogTableVisible: false,
       dialogFormVisible1: false,
       dialogFormVisible2: false,
-      outerVisible: false,
-      innerVisible: false,
       form: {
         name: '',
         region: '',
@@ -562,7 +396,6 @@ export default {
       textarea: '',
       formLabelWidth: '100px',
       tasklist: [],
-      tasklist_three: [],
       // 弹窗 2
       value1: [],
       options: [
@@ -642,10 +475,7 @@ export default {
     // 菜单切换高亮显示 2
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event)
-    },
-    addLine_two() {
+    addLine() {
       // 添加行数
       var newValue = {
         drugGenericName: '',
@@ -658,32 +488,14 @@ export default {
       // 添加新的行数
       this.tableData.push(newValue)
     },
-    addLine_three() {
-      // 添加行数
-      var newValue = {
-        pmid: '',
-        name: '',
-        accessoryId: '',
-        caozuo: ''
-      }
-      // 添加新的行数
-      this.tableData_three.push(newValue)
-    },
-    // 删除行3
-    handleDelete_three(index) {
-      console.log(index)
-      // 删除行数
-      this.tableData_three.splice(index, 1)
-    },
-    // 删除行2
     handleDelete(index) {
       console.log(index)
+
       // 删除行数
       this.tableData.splice(index, 1)
     },
-    // 弹窗中确定提交按钮
     save() {
-      this.outerVisible = false
+      this.dialogFormVisible2 = false
       // 这部分应该是保存提交你添加的内容
       console.log(JSON.stringify(this.tableData))
     },
@@ -712,13 +524,10 @@ export default {
         this.id = res.data.id
       })
     },
-    bianji() {
-      this.outerVisible = true
-      // this.dialogFormVisible2 = true
-    },
-    wenxiancontentedit() {
-      this.innerVisible = true
-      this.tasklist_three = []
+    bianji(id) {
+      // this.dialogFormVisible1 = true
+      this.dialogFormVisible2 = true
+      this.tasklist = []
       // var url = 'static/data/taskhall.json'
       // axios({
       //   method: 'get',
@@ -732,11 +541,12 @@ export default {
       //       name: data1[key],
       //       value: key
       //     }
-      //     this.tasklist_three.push(s)
+      //     this.tasklist.push(s)
       //   }
       // })
       let data2 = {
         evidenceLevel_input: '询证等级',
+        projectPorId_select: '项目位点主键',
         medicationType_input: '用药类型',
         race_details_textarea: '种族详情',
         medication_suggestion_textarea: '用药建议'
@@ -747,45 +557,14 @@ export default {
           name: data2[key3],
           value: key3
         }
-        this.tasklist_three.push(s)
+        this.tasklist.push(s)
       }
     },
-    // bianji(id) {
-    //   // this.dialogFormVisible1 = true
-    //   this.dialogFormVisible2 = true
-    //   this.tasklist = []
-    //   // var url = 'static/data/taskhall.json'
-    //   // axios({
-    //   //   method: 'get',
-    //   //   url: url
-    //   // }).then(res => {
-    //   //   // debugger
-    //   //   console.log(res)
-    //   //   let data1 = res.data
-    //   //   for (var key in data1) {
-    //   //     let s = {
-    //   //       name: data1[key],
-    //   //       value: key
-    //   //     }
-    //   //     this.tasklist.push(s)
-    //   //   }
-    //   // })
-    //   let data2 = {
-    //     evidenceLevel_input: '询证等级',
-    //     projectPorId_select: '项目位点主键',
-    //     medicationType_input: '用药类型',
-    //     race_details_textarea: '种族详情',
-    //     medication_suggestion_textarea: '用药建议'
-    //   }
-    //   for (var key3 in data2) {
-    //     // console.log(key3 + ' : ' + data2[key3])
-    //     let s = {
-    //       name: data2[key3],
-    //       value: key3
-    //     }
-    //     this.tasklist.push(s)
-    //   }
-    // },
+    insertTask(row) {
+      alert('添加成功了')
+      console.log(1111111111111111111111)
+    },
+
     lingqu(id) {
       this.disabled = true
     },
@@ -1508,9 +1287,6 @@ ul.box {
   color: hsla(3, 82%, 69%, 0.77);
 }
 .two .el-dialog--small {
-  width: 86% !important;
-}
-.three .el-dialog--small {
   width: 86% !important;
 }
 .el-dialog__header {
