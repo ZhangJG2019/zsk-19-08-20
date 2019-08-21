@@ -97,7 +97,7 @@
                   <el-button
                     :id="forId2(key)"
                     type="button"
-                    @click="bianji(item.id)"
+                    @click="bianji1(item.id)"
                     v-if="disabled == false"
                     v-text="btntxt"
                   >
@@ -400,7 +400,7 @@
                     <el-button
                       type="primary"
                       v-model="scope.row.approvalNumber"
-                      @click="wenxiancontentedit"
+                      @click="bianji"
                       >编辑</el-button
                     >
                   </template>
@@ -461,7 +461,7 @@
     >
       <li
         class="center_content"
-        v-for="(item, key_three) in tasklist_three"
+        v-for="(item, key_three) in tasklist"
         :key="key_three"
         style="margin-bottom:10px;"
       >
@@ -469,7 +469,7 @@
         <el-input
           v-model="form.name"
           style="width:83%"
-          v-if="item.value.indexOf('_input') > 0"
+          v-if="item.type.indexOf('_input') >= 0"
         ></el-input>
         <el-input
           style="width:83%"
@@ -477,7 +477,16 @@
           :rows="2"
           placeholder="请输入内容"
           v-model="textarea"
-          v-if="item.value.indexOf('_textarea') > 0"
+          v-if="item.type.indexOf('_textarea') >= 0"
+        >
+        </el-input>
+        <el-input
+          style="width:83%"
+          :rows="2"
+          id="item.value"
+          placeholder="请输入内容"
+          v-model="textarea"
+          v-if="item.type.indexOf('ckeditor') > 0"
         >
         </el-input>
       </li>
@@ -562,7 +571,6 @@ export default {
       textarea: '',
       formLabelWidth: '100px',
       tasklist: [],
-      tasklist_three: [],
       // 弹窗 2
       value1: [],
       options: [
@@ -712,13 +720,13 @@ export default {
         this.id = res.data.id
       })
     },
-    bianji() {
+    bianji1() {
       this.outerVisible = true
       // this.dialogFormVisible2 = true
     },
-    wenxiancontentedit() {
+    bianji() {
       this.innerVisible = true
-      this.tasklist_three = []
+      this.tasklist = []
       // var url = 'static/data/taskhall.json'
       // axios({
       //   method: 'get',
@@ -732,9 +740,10 @@ export default {
       //       name: data1[key],
       //       value: key
       //     }
-      //     this.tasklist_three.push(s)
+      //     this.tasklist.push(s)
       //   }
       // })
+      
       let data2 = {
         evidenceLevel_input: '询证等级',
         medicationType_input: '用药类型',
@@ -743,11 +752,14 @@ export default {
       }
       for (var key3 in data2) {
         // console.log(key3 + ' : ' + data2[key3])
+        let id = key3.substring(0, key3.lastIndexOf('_'))
+        let type = key3.substring(key3.lastIndexOf('_'), key3.length)
         let s = {
           name: data2[key3],
-          value: key3
+          value: id,
+          type: type
         }
-        this.tasklist_three.push(s)
+        this.tasklist.push(s)
       }
     },
     // bianji(id) {
