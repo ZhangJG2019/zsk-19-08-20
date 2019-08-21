@@ -139,7 +139,7 @@ export default {
       },
       // 注册页面字段
       ruleForm: {
-        mobile: '15101024057',
+        mobile: '',
         username: '',
         password: '',
         verifyCode: '',

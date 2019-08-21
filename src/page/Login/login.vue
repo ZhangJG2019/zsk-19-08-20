@@ -93,12 +93,7 @@ export default {
       cart: [],
       loginPage: true,
       ruleForm: {
-        userName: 'jockerboby',
-        userPwd: '123456',
-        errMsg: ''
-      },
-      registered: {
-        userName: '11',
+        userName: '111',
         userPwd: '111',
         errMsg: ''
       },

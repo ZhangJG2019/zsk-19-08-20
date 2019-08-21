@@ -28,7 +28,6 @@
               <el-select
                 v-model="value1"
                 multiple
-                placeholder="请选择"
                 style="width:800px;"
                 class="taskchoose"
               >
@@ -50,7 +49,6 @@
                 <!-- 任务搜索框 1-->
                 <li style="float:right;margin-bottom:13px">
                   <el-autocomplete
-                    placeholder="请输入查询信息"
                     icon="search"
                     v-model="input"
                     minlength="1"
@@ -169,186 +167,6 @@
       </ul>
     </div>
     <y-footer></y-footer>
-    <el-dialog title="编辑任务1" :visible.sync="dialogFormVisible1">
-      <li
-        class="center_content"
-        v-for="(item, key1) in tasklist"
-        :key="key1"
-        style="margin-bottom:10px;"
-      >
-        <span style="float:left;width:100px;" v-text="item.name"></span>
-        <el-input
-          v-model="form.name"
-          style="width:83%"
-          v-if="item.value.indexOf('_input') > 0"
-        ></el-input>
-        <el-select
-          v-model="form.region"
-          placeholder="请选择活动区域"
-          style="width:83%"
-          v-if="item.value.indexOf('_select') > 0"
-        >
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
-        <el-input
-          style="width:83%"
-          type="textarea"
-          :rows="2"
-          placeholder="请输入内容"
-          v-model="textarea"
-          v-if="item.value.indexOf('_textarea') > 0"
-        >
-        </el-input>
-      </li>
-      <div slot="footer" class="dialog-footer">
-        <el-button
-          @click="dialogFormVisible1 = false"
-          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-          >取 消</el-button
-        >
-        <el-button
-          type="primary"
-          @click="dialogFormVisible1 = false"
-          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-          >确 定</el-button
-        >
-        <el-button
-          @click="dialogFormVisible1 = false"
-          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-          >放弃任务</el-button
-        >
-      </div>
-    </el-dialog>
-    <div class="two">
-      <el-dialog
-        title="编辑任务2"
-        :visible.sync="dialogFormVisible2"
-        class="two"
-      >
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane label="任务信息" name="first">
-            <div class="">
-              任务名称：
-              <el-input
-                placeholder="任务名称"
-                suffix-icon="el-icon-date"
-                v-model="input1"
-              >
-              </el-input>
-              评论内容：
-              <el-input
-                type="textarea"
-                placeholder="请输入内容"
-                prefix-icon="el-icon-search"
-                v-model="input2"
-              >
-              </el-input>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="任务编辑" name="second">
-            <div class="TestWord">
-              <div class="insertbutton">
-                <el-button @click="addLine_two" class="addrow"
-                  >添加行数</el-button
-                >
-              </div>
-              <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="xuhao" label="序号" width="100px">
-                  <template slot-scope="scope">
-                    <label v-text="scope.$index + 1"></label>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="drugGenericName" label="药物通用名">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.drugGenericName"
-                      placeholder="药物通用名"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="drugTradeName" label="药物商品名">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.drugTradeName"
-                      placeholder="药物商品名"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="approvalNumber" label="批准文号">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.approvalNumber"
-                      placeholder="批准文号"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="specifications" label="规格">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.specifications"
-                      placeholder="规格"
-                    ></el-input>
-                  </template> </el-table-column
-                ><el-table-column prop="originPlace" label="国家/厂家">
-                  <template slot-scope="scope">
-                    <el-input
-                      type="textarea"
-                      v-model="scope.row.originPlace"
-                      placeholder="国家/厂家"
-                    ></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="caozuo" label="操作">
-                  <template slot-scope="scope">
-                    <div class="insertbutton">
-                      <!-- <el-button
-                    class="delete"
-                    size="mini"
-                    v-if="!scope.row.editing"
-                    icon="el-icon-delete"
-                    @click="handleDelete(scope.$index, scope.row)"
-                    >删除
-                  </el-button> -->
-                      <i
-                        class="el-icon-delete delete"
-                        size="mini"
-                        v-if="!scope.row.editing"
-                        icon="el-icon-delete"
-                        @click="handleDelete(scope.$index, scope.row)"
-                      ></i>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button
-            @click="dialogFormVisible2 = false"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >取 消</el-button
-          >
-          <el-button
-            type="primary"
-            @click="save"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >确 定</el-button
-          >
-          <el-button
-            @click="dialogFormVisible2 = false"
-            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
-            >放弃任务</el-button
-          >
-        </div>
-      </el-dialog>
-    </div>
     <!-- 弹窗 3 -->
     <div class="three">
       <el-dialog title="外层 Dialog 编辑任务3" :visible.sync="outerVisible">
@@ -356,11 +174,7 @@
           <el-tab-pane label="任务信息" name="first">
             <div class="">
               任务名称：
-              <el-input
-                placeholder="任务名称"
-                suffix-icon="el-icon-date"
-                v-model="input_three"
-              >
+              <el-input suffix-icon="el-icon-date" v-model="input_three">
               </el-input>
             </div>
           </el-tab-pane>
@@ -382,7 +196,6 @@
                     <el-input
                       type="textarea"
                       v-model="scope.row.pmid"
-                      placeholder="PMID"
                     ></el-input>
                   </template>
                 </el-table-column>
@@ -391,7 +204,6 @@
                     <el-input
                       type="textarea"
                       v-model="scope.row.name"
-                      placeholder="文献名称"
                     ></el-input>
                   </template>
                 </el-table-column>
@@ -407,10 +219,7 @@
                 </el-table-column>
                 <el-table-column prop="accessoryId" label="文献上传">
                   <template slot-scope="scope">
-                    <el-select
-                      v-model="scope.row.accessoryId"
-                      placeholder="规格"
-                    ></el-select>
+                    <el-select v-model="scope.row.accessoryId"></el-select>
                   </template>
                 </el-table-column>
                 <el-table-column prop="caozuo" label="操作">
@@ -430,9 +239,6 @@
             </div>
           </el-tab-pane>
         </el-tabs>
-        <!-- 内层dialog 1-->
-        <div class="three_two"></div>
-        <!-- 内层dialog 1-->
         <div slot="footer" class="dialog-footer">
           <el-button
             @click="outerVisible = false"
@@ -453,9 +259,10 @@
         </div>
       </el-dialog>
     </div>
+    <!-- 内层弹窗 开始-->
     <el-dialog
       width="30%"
-      title="内层 Dialog"
+      title="内层 Dialog3（不带three）"
       :visible.sync="innerVisible"
       :append-to-body="true"
     >
@@ -475,7 +282,6 @@
           style="width:83%"
           type="textarea"
           :rows="2"
-          placeholder="请输入内容"
           v-model="textarea"
           v-if="item.type.indexOf('_textarea') >= 0"
         >
@@ -504,7 +310,166 @@
         >
       </div>
     </el-dialog>
+    <!-- 内层弹窗 结束-->
     <!-- 弹窗 3 -->
+    <!-- 弹窗 4 -->
+    <div class="four">
+      <el-dialog
+        title="外层 Dialog 任务信息整理"
+        :visible.sync="outerVisible_four"
+      >
+        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+          <el-tab-pane label="任务信息" name="first">
+            <div class="">
+              任务名称：
+              <el-input suffix-icon="el-icon-date" v-model="input_three">
+              </el-input>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="任务编辑" name="second">
+            <div class="TestFour">
+              <div class="insertbutton">
+                <el-button @click="addLine_four" class="addrow"
+                  >添加行数</el-button
+                >
+              </div>
+              <el-table :data="tableData_four" style="width: 100%">
+                <el-table-column prop="xuhao" label="序号" width="100px">
+                  <template slot-scope="scope">
+                    <label v-text="scope.$index + 1"></label>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="pmid" label="Pathways">
+                  <template slot-scope="scope">
+                    <el-input
+                      type="textarea"
+                      v-model="scope.row.pathways"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="name" label="RELATED PATHWAYS">
+                  <template slot-scope="scope">
+                    <el-input
+                      type="textarea"
+                      v-model="scope.row.relatedPathways"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="name" label="PUBLICATION">
+                  <template slot-scope="scope">
+                    <el-input
+                      type="textarea"
+                      v-model="scope.row.publication"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="name" label="Authors">
+                  <template slot-scope="scope">
+                    <el-input
+                      type="textarea"
+                      v-model="scope.row.authors"
+                    ></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column label="更多信息">
+                  <template slot-scope="scope">
+                    <el-button
+                      type="primary"
+                      @click="bianji"
+                      >编辑</el-button
+                    >
+                  </template>
+                </el-table-column>
+
+                <el-table-column prop="caozuo" label="操作">
+                  <template slot-scope="scope">
+                    <div class="insertbutton">
+                      <i
+                        class="el-icon-delete delete"
+                        size="mini"
+                        v-if="!scope.row.editing"
+                        icon="el-icon-delete"
+                        @click="handleDelete_four(scope.$index, scope.row)"
+                      ></i>
+                    </div>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            @click="outerVisible_four = false"
+            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
+            >取 消</el-button
+          >
+          <el-button
+            type="primary"
+            @click="save"
+            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
+            >确 定</el-button
+          >
+          <el-button
+            @click="outerVisible_four = false"
+            style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
+            >放弃任务</el-button
+          >
+        </div>
+      </el-dialog>
+    </div>
+    <!-- 内层弹窗 开始-->
+    <el-dialog
+      width="30%"
+      title="内层 Dialog 任务信息整理"
+      :visible.sync="innerVisible"
+      :append-to-body="true"
+    >
+      <li
+        class="center_content"
+        v-for="(item, key_three) in tasklist"
+        :key="key_three"
+        style="margin-bottom:10px;"
+      >
+        <span style="float:left;width:100px;" v-text="item.name"></span>
+        <el-input
+          v-model="form.name"
+          style="width:83%"
+          v-if="item.type.indexOf('_input') >= 0"
+        ></el-input>
+        <el-input
+          style="width:83%"
+          type="textarea"
+          :rows="2"
+          v-model="textarea"
+          v-if="item.type.indexOf('_textarea') >= 0"
+        >
+        </el-input>
+        <quill-editor
+          v-model="content"
+          ref="myQuillEditor"
+          style="width:84%;margin-left:100px;"
+          :options="editorOption"
+          v-if="item.type.indexOf('_ckeditor') >= 0"
+        >
+        </quill-editor>
+      </li>
+      <div slot="footer" class="dialog-footer">
+        <el-button
+          @click="innerVisible = false"
+          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
+          >取 消</el-button
+        >
+        <el-button
+          type="primary"
+          @click="innerVisible = false"
+          style="margin:3px 0 0 10px; width:90px;height:40px;font-size:16px;vertical-align:middle;"
+          >确 定</el-button
+        >
+      </div>
+    </el-dialog>
+    <!-- 内层弹窗 结束-->
+    <!-- 弹窗 4 -->
   </div>
 </template>
 <script>
@@ -563,11 +528,21 @@ export default {
           caozuo: ''
         }
       ],
+      tableData_four: [
+        {
+          pathways: '',
+          relatedPathways: '',
+          publication: '',
+          authors: '',
+          caozuo: ''
+        }
+      ],
       dialogTableVisible: false,
       dialogFormVisible1: false,
       dialogFormVisible2: false,
       outerVisible: false,
       innerVisible: false,
+      outerVisible_four: false,
       form: {
         name: '',
         region: '',
@@ -689,6 +664,24 @@ export default {
       // 添加新的行数
       this.tableData_three.push(newValue)
     },
+    addLine_four() {
+      // 添加行数
+      var newValue = {
+        pathways: '',
+        relatedPathways: '',
+        publication: '',
+        authors: '',
+        caozuo: ''
+      }
+      // 添加新的行数
+      this.tableData_four.push(newValue)
+    },
+    // 删除行4
+    handleDelete_four(index) {
+      console.log(index)
+      // 删除行数
+      this.tableData_four.splice(index, 1)
+    },
     // 删除行3
     handleDelete_three(index) {
       console.log(index)
@@ -703,9 +696,9 @@ export default {
     },
     // 弹窗中确定提交按钮
     save() {
-      this.outerVisible = false
+      this.outerVisible_four = false
       // 这部分应该是保存提交你添加的内容
-      console.log(JSON.stringify(this.tableData))
+      console.log(JSON.stringify(this.tableData_four))
     },
     // 给任务大厅数据列表动态添加id
     forId: function(index) {
@@ -733,8 +726,7 @@ export default {
       })
     },
     bianji1() {
-      this.outerVisible = true
-      // this.dialogFormVisible2 = true
+      this.outerVisible_four = true
     },
     bianji() {
       this.innerVisible = true
@@ -1497,12 +1489,15 @@ ul.box {
   font-size: 20px;
   color: hsla(3, 82%, 69%, 0.77);
 }
-.two .el-dialog--small {
+.two .el-dialog--small,
+.three .el-dialog--small,
+.four .el-dialog--small,
+.five .el-dialog--small,
+.six .el-dialog--small,
+.seven .el-dialog--small {
   width: 86% !important;
 }
-.three .el-dialog--small {
-  width: 86% !important;
-}
+
 .el-dialog__header {
   background-color: #eee;
   padding: 10px;
